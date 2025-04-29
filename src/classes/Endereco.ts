@@ -1,4 +1,5 @@
 export default class endereco {
+     id!:number
      tipo_logradouro!:string;
      logradouro!:string
      numero!: string
