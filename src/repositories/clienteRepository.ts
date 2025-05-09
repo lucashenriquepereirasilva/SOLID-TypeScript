@@ -20,6 +20,7 @@ export default class ClienteRepository implements CommandsPessoa<Cliente>{
             // endereco deste cliente e, então obtemos o id do endereco cadastrado
             // alocamos em uma 
             
+            let id_end:any;
             conexao.query("INSERT INTO endereco(tipo_logradouro,logradouro, numero,complemento, cep,  bairro) Values(?,?,?,?,?)",
 
             [obj.endereco.tipo_logradouro,
@@ -29,9 +30,15 @@ export default class ClienteRepository implements CommandsPessoa<Cliente>{
                 obj.endereco.cep,
                 obj.endereco.bairro],
                 (error,end) => {
-                    
-                }
-        )
+                    if(error) {
+                        return reject(error)
+                    }
+                    else{
+                       // id_end = end.insertId
+                    }
+                
+
+        
 
             conexao.query("INSERT INTO  cliente SET ?", obj,(error,result)=>{
                 if(error) {
@@ -41,6 +48,7 @@ export default class ClienteRepository implements CommandsPessoa<Cliente>{
                  return resolve(obj)
                 }
                })
+            })
         
         
         })
