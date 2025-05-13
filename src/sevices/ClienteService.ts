@@ -9,7 +9,7 @@ export default class ClienteService {
         const cli:Cliente =  new Cliente()
         cli.nome = req.body.nome
         cli.email = req.body.email
-        cli.cpf = req.body.cpf.
+        cli.cpf = req.body.cpf
         cli.telefone  = req.body.telefone
         cli.aniversario = req.body.aniversario
         cli.endereco = req.body.endereco
