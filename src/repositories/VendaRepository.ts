@@ -1,23 +1,25 @@
-import { Request, Response } from "express-serve-static-core";
-
-import Produto from "../classes/Produto";
+import Venda from "../classes/Venda";
 import { conexao } from "../database/config";
-import Commands from "../interfaces/comando";
+import CommandsVenda from "../interfaces/commandsVenda";
 
-export default class ProdutoRepository implements Commands<Produto>{
-    ProdutoRepository(req: Request<{}, any, any,  Record<string, any>>, res: Response<any, Record<string, any>, number>) {
+
+export default  class VendaRepository implements CommandsVenda<Venda>{
+    PesquisarPorData(data: Date): Promise<Venda[]> {
         throw new Error("Method not implemented.");
     }
-    Cadastrar(obj: Produto): Promise<Produto> {
+    PesquisarPorIntervalo(data_inicial: Date): Promise<Venda[]> {
+        throw new Error("Method not implemented.");
+    }
+    Cadastrar(obj: Venda): Promise<Venda> {
         return new Promise((resolve,reject)=>{
           
             
        
-            conexao.query("INSERT INTO produto(nome, preco, descricao) Values(?,?,?)",
+            conexao.query("INSERT INTO venda (id_cliente,id_funcionario) Values(?,?)",
 
-            [obj.nome,
-                obj.preco,
-                obj.descricao
+            [obj.cliente,
+                obj.funcionario,
+            
              ] ,
                 
                 
@@ -37,13 +39,13 @@ export default class ProdutoRepository implements Commands<Produto>{
         
         })
     }
-    Listar(): Promise<Produto[]> {
+    Listar(): Promise<Venda[]> {
         return new Promise ((resolve,reject)=> {
-            conexao.query("Select * from produto", (error, result)=> {
+            conexao.query("Select * from venda", (error, result)=> {
                 if(error) {
                     return reject (error)
                 } else {
-                    return resolve(result as Produto[])
+                    return resolve(result as Venda[])
                 }
             })
          })
@@ -51,10 +53,10 @@ export default class ProdutoRepository implements Commands<Produto>{
     Apagar(id: number): Promise<string> {
         throw new Error("Method not implemented.");
     }
-    Atualizar(obj: Produto): Promise<Produto> {
+    Atualizar(obj: Venda): Promise<Venda> {
         throw new Error("Method not implemented.");
     }
-    PesquisarId(Id: number): Promise<Produto> {
+    PesquisarId(Id: number): Promise<Venda> {
         throw new Error("Method not implemented.");
     }
     
